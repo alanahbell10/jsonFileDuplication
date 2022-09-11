@@ -1,0 +1,20 @@
+{
+  "name": "Number #1",
+  "symbol": "NB",
+  "description": "",
+  "image": "0.png",
+  "attributes": [
+    {
+      "trait_type": "",
+      "value": ""
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "0.png",
+        "type": "image/png"
+      }
+    ]
+  }
+}
