@@ -2,29 +2,47 @@ import os
 import shutil
 import json
 
-firstName = int(input("Enter number of starting JSON file name: "))
-numFiles = int(input("How many times would you like to duplicate " + str(firstName) + ".json? "))
+firstName = 0
+
+newName = firstName
+prevName = newName
+count = int(input("How many times would you like to duplicate " + str(firstName) + ".json? "))
 
 
-prevName = firstName
-newName = firstName + 1
-count = numFiles
+
+src = os.path.join('/Users/lana/desktop/generator', str(firstName) + '.json')
+dest = os.path.join('/Users/lana/desktop/generator/assets', str(newName) + '.json')
+
+try:
+    path = shutil.copyfile(src,dest)
+except shutil.SameFileError:
+    pass
+        
 
 for i in range(0, count):
+    prevName = newName
+    newName = newName + 1
+    src = os.path.join('/Users/lana/desktop/generator/assets', str(prevName) + '.json')
+    dest = os.path.join('/Users/lana/desktop/generator/assets', str(newName) + '.json')
 
-	src = os.path.join('/Users/lana/Desktop/', str(prevName) + '.json')
-	dest = os.path.join('/Users/lana/Desktop/', str(newName) + '.json')	
-	path = shutil.copyfile(src, dest)
-
-	with open(os.path.join('/Users/lana/Desktop/', str(newName) + '.json'), 'r+') as file:
-    		data = json.load(file)
-    		data['number'] = data['number'] + 1
-    		file.seek(0)
-    		json.dump(data, file, indent=4)
-    		file.truncate()
-
-
-	prevName += 1
-	newName += 1
-  
+    with open(os.path.join('/Users/lana/desktop/generator/assets', str(prevName) + '.json'), 'r+') as file:
+        data = json.load(file)
+        data['name'] = "Number #" + str(newName + 1)
+        data['image'] = str(newName) + ".png"
+        data['properties']['files'][0]['uri'] = str(newName) + ".png"
+        file.seek(0)
+        json.dump(data, file, indent=2)
+        file.truncate()
+        try:
+            path = shutil.copyfile(src,dest)
+        except shutil.SameFileError:
+            pass
+        
+    
+    
+    
+    
+    
+    
+    
 print(str(count) + ' files duplicated')
